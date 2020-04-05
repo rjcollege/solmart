@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,Validators,FormBuilder} from '@angular/forms';
+import { HttpClient } from  "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,10 @@ export class LoginComponent implements OnInit {
   loginForm : FormGroup;
   submitted = false;
   
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder,private httpClient:HttpClient) { }
 
+  email:string;
+  password:string;
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -25,10 +28,27 @@ export class LoginComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
 
-      // stop here if form is invalid
-      if (this.loginForm.invalid) {
-          return;
+      this.httpClient.post("http://solmart.co.in/cms/api/login.php",
+      {
+        'email':this.email,
+        'password':this.password
+      })
+      .subscribe(
+      data  => {
+       if(data['status']=='1'){
+        alert("Successful");
+       }
+       else{
+         alert("Oopse");
+       } 
+      },
+      error  => {
+      
+      console.log("Error", error);
+      
       }
-      alert('SUCCESS!!');
+      
+      );
 }
+
 }
