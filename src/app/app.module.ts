@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from  '@angular/common/http';
+import { DialogModule } from '@syncfusion/ej2-angular-popups';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { HttpClientModule } from  '@angular/common/http';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
